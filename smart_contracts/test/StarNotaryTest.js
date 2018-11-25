@@ -16,11 +16,34 @@ contract('StarNotary', accounts => {
                 555
             );
 
-            assert.equal(await this.contract.tokenIdToStarInfo(555).name,'awesome star!');
-            assert.equal(await this.contract.tokenIdToStarInfo(555).story,'awesome story!');
-            assert.equal(await this.contract.tokenIdToStarInfo(555).dec,'1');
-            assert.equal(await this.contract.tokenIdToStarInfo(555).mag,'2');
-            assert.equal(await this.contract.tokenIdToStarInfo(555).cent,'3');
+            let duplicateEr = null;
+            try {
+                await this.contract.createStar(
+                    'awesome star!',
+                    'awesome story!',
+                    '1', '2', '3',
+                    555
+                );
+            } catch (er) {
+                duplicateEr = er;
+            }
+
+            assert.instanceOf(duplicateEr, Error, "Can add duplicate star");
+
+            await this.contract.createStar(
+                'awesome star!',
+                'awesome story!',
+                '5', '6', '7',
+                556
+            );
+
+            const [starName, starStory, starDec, starMag, starCent] = await this.contract.tokenIdToStarInfo(555);
+
+            assert.equal(starName,'awesome star!');
+            assert.equal(starStory,'awesome story!');
+            assert.equal(starDec,'1');
+            assert.equal(starMag,'2');
+            assert.equal(starCent,'3');
         });
     });
 });
