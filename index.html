@@ -7,25 +7,54 @@
         <link rel="stylesheet" type="text/css" href="style.css">
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-        <script src="script-abi.js"></script>
+        <script src="script.abi.js"></script>
+        <script src="script.address.js"></script>
         <script src="script.js"></script>
     </head>
 
     <body>
         <div class="container">
-            <h1>Star Notary</h1>
+            <h1>Claim a new star</h1>
 
             <div class="row">
-                <label class="bold">Star Name:</label>
-                <label id="star-name"></label>
+                <label class="bold">Name:</label>
+                <input id="new-star-name"/>
             </div>
 
             <div class="row">
-                <label class="bold">Star Owner:</label>
-                <label id="star-owner"></label>
+                <label class="bold">Story:</label>
+                <input id="new-star-story"/>
             </div>
 
-            <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+            <div class="row">
+                <label class="bold">Dec:</label>
+                <input id="new-star-dec"/>
+            </div>
+            <div class="row">
+                <label class="bold">Mag:</label>
+                <input id="new-star-mag"/>
+            </div>
+            <div class="row">
+                <label class="bold">Cent:</label>
+                <input id="new-star-cent"/>
+            </div>
+            <div class="row">
+                <label class="bold">Token ID:</label>
+                <input id="new-star-token"/>
+            </div>
+
+            <button id="claim-button" onclick="claimButtonClicked()">Claim the Star</button>
+        </div>
+
+        <div class="container">
+            <h1>Read the Star by it's token:</h1>
+
+            <div class="row">
+                <label class="bold">Star Token:</label>
+                <label id="star-token"></label>
+            </div>
+
+            <button id="check-button" onclick="readButtonClicked()">Check Star</button>
         </div>
     </body>
 </html>

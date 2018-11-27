@@ -1,0 +1,1 @@
+let ADDRESS = 'put_here_your_smart_contract_address_produced_by_truffle_migrate';

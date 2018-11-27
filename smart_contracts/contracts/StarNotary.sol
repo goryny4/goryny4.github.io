@@ -16,6 +16,18 @@ contract StarNotary is ERC721 {
     mapping(uint256 => uint256) public starsForSale;
     mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
 
+    //   mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
+    function checkIfStarExists(
+        string _dec,
+        string _mag,
+        string _cent
+    )   view
+    public
+    returns (bool)
+    {
+        return coordinatesToStarId[_dec][_mag][_cent] > 0;
+    }
+
     modifier isUniqueStar(string _dec, string _mag, string _cent) {
         require(!checkIfStarExists(_dec, _mag, _cent), "Star exists");
         _;
@@ -39,7 +51,7 @@ contract StarNotary is ERC721 {
         _mint(msg.sender, _tokenId);
     }
 
-    function putStarUpForSale(uint256 _tokenId, uint256 _price) public { 
+    function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
         require(this.ownerOf(_tokenId) == msg.sender, "You are not an owner of this Star");
 
         starsForSale[_tokenId] = _price;
@@ -48,7 +60,7 @@ contract StarNotary is ERC721 {
 
     // checks -> effects -> interaction (money move) (important pattern! fallback function)
     function buyStar(uint256 _tokenId) public payable { 
-        require(starsForSale[_tokenId] > 0, "This star is not for sale");
+        require(starsForSale[_tokenId] > 0, "This star is not for sale!");
         
         uint256 starCost = starsForSale[_tokenId];
         address starOwner = this.ownerOf(_tokenId);
@@ -74,20 +86,8 @@ contract StarNotary is ERC721 {
         );
     }
 
-    //   mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
-    function checkIfStarExists(
-        string _dec,
-        string _mag,
-        string _cent
-    )
-        public
-        returns (bool)
-    {
-        return coordinatesToStarId[_dec][_mag][_cent] > 0;
-    }
 
-
-    function starsForSale(uint256 _tokenId) public view returns (uint256) {
-        return starsForSale[_tokenId];
-    }
+//    function starIsForSale(uint256 _tokenId) public view returns (bool) {
+//        return false; //starIsForSale[_tokenId];
+//    }
 }
