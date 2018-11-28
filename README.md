@@ -3,6 +3,7 @@
 ### 1. Set env vars
 Create .env file inside smart_contracts folder
 > cp .env.example .env
+
 Set MNEMONIC and INFURA_API_KEY
 
 ### 2. Run local network
@@ -19,6 +20,7 @@ The ABI code is pasted into script.abi.js file
 ### 5. Set contract address
 Manually copy address from the previous command output
 > Migrations: {copy-this-address}
+
 Manually paste it in script.address.js file
 
 ### 6. Run local server and open the frontend
