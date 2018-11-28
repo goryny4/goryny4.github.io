@@ -10,6 +10,7 @@ contract StarNotary is ERC721 {
         string dec;
         string mag;
         string cent;
+        bool exists;
     }
 
     mapping(uint256 => Star) public tokenIdToStarInfo;
@@ -44,7 +45,9 @@ contract StarNotary is ERC721 {
         public
         isUniqueStar( _dec, _mag, _cent)
     {
-        Star memory newStar = Star(_name, _story, _dec, _mag, _cent);
+        require(!tokenIdToStarInfo[_tokenId].exists,"Token already exists!");
+
+        Star memory newStar = Star(_name, _story, _dec, _mag, _cent, true);
 
         tokenIdToStarInfo[_tokenId] = newStar;
 
@@ -55,6 +58,12 @@ contract StarNotary is ERC721 {
         require(this.ownerOf(_tokenId) == msg.sender, "You are not an owner of this Star");
 
         starsForSale[_tokenId] = _price;
+    }
+
+    function getStarPriceByTokenId(uint256 _tokenId) public view returns(uint256) {
+        require(starsForSale[_tokenId] > 0, "This star is not for sale!");
+
+        return starsForSale[_tokenId];
     }
 
 

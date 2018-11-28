@@ -50,10 +50,32 @@
             <h1>Read the Star by it's token:</h1>
 
             <div class="row">
-                <label class="bold">Star Token:</label>
-                <label id="star-token"></label>
+                <label class="bold">Token ID:</label>
+                <input id="star-token" value="12345678"/>
             </div>
 
+            <div class="row" style="display: none">
+                <label class="bold">Name:</label>
+                <label id="star-name"></label>
+            </div>
+
+            <div class="row" style="display: none">
+                <label class="bold">Story:</label>
+                <label id="star-story"></label>
+            </div>
+
+            <div class="row" style="display: none">
+                <label class="bold">Dec:</label>
+                <label id="star-dec"></label>
+            </div>
+            <div class="row" style="display: none">
+                <label class="bold">Mag:</label>
+                <label id="star-mag"></label>
+            </div>
+            <div class="row" style="display: none">
+                <label class="bold">Cent:</label>
+                <label id="star-cent"></label>
+            </div>
             <button id="check-button" onclick="readButtonClicked()">Check Star</button>
         </div>
     </body>

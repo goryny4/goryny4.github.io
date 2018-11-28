@@ -30,26 +30,6 @@ let StarNotary = web3.eth.contract(ABI);
 // Grab the contract at specified deployed address with the interface defined by the ABI
 let starNotary = StarNotary.at(ADDRESS);
 
-// Get and display star name
-/*
-starNotary.starIsForSale(123, function (error, result) {
-if (!error) {
-    document.getElementById('stars-for-sale').innerText = result
-} else {
-    console.log(error);
-}
-});
-*/
-// Get and display star owner
-/*starNotary.starOwner(function (error, result) {
-    if (!error) {
-        document.getElementById('star-owner').innerText = result
-    } else {
-        console.log(error);
-    }
-});*/
-
-
 // Enable claim button being clicked
 function claimButtonClicked() {
     web3.eth.getAccounts(function(error, accounts) {
@@ -57,7 +37,6 @@ function claimButtonClicked() {
             console.log(error);
             return
         }
-        let account = accounts[0];
 
         let starName = document.getElementById('new-star-name').value;
         let starStory = document.getElementById('new-star-story').value;
@@ -68,15 +47,7 @@ function claimButtonClicked() {
 
         starNotary.createStar(starName,starStory,starDec,starMag,starCent,starToken,function (error, result) {
             if (!error) {
-                /*
-                let starClaimedEvent = starNotary.starClaimed({from: account});
-                starClaimedEvent.watch(function(error, result) {
-                    if (!error) {
-                        location.reload();
-                    } else {
-                        console.log('watching for star claimed event is failing');
-                    }
-                }); */
+                console.log('successfully stored');
             } else {
                 console.log(error);
             }
@@ -93,22 +64,30 @@ function readButtonClicked() {
             console.log(error);
             return
         }
-        let account = accounts[0];
 
-        let starStory = document.getElementById('star-story').value;
+        let starToken = document.getElementById('star-token').value;
 
-        starNotary.createStar('name',starStory,'dec','mag','cent','tokenId',function (error, result) {
+        let starName = document.getElementById('star-name');
+        let starStory = document.getElementById('star-story');
+        let starDec = document.getElementById('star-dec');
+        let starMag = document.getElementById('star-mag');
+        let starCent = document.getElementById('star-cent');
+
+        starNotary.tokenIdToStarInfo(starToken ,function (error, result) {
             if (!error) {
+                starName.innerHTML = result[0];
+                starStory.innerHTML = result[1];
+                starDec.innerHTML = result[2];
+                starMag.innerHTML = result[3];
+                starCent.innerHTML = result[4];
+
+                starName.parentElement.style.display = '';
+                starStory.parentElement.style.display = '';
+                starDec.parentElement.style.display = '';
+                starMag.parentElement.style.display = '';
+                starCent.parentElement.style.display = '';
+
                 console.log(result);
-                /*
-                let starClaimedEvent = starNotary.starClaimed({from: account});
-                starClaimedEvent.watch(function(error, result) {
-                    if (!error) {
-                        location.reload();
-                    } else {
-                        console.log('watching for star claimed event is failing');
-                    }
-                }); */
             } else {
                 console.log(error);
             }
