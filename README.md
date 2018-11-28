@@ -19,7 +19,7 @@ The ABI code is pasted into script.abi.js file
 
 ### 5. Set contract address
 Manually copy address from the previous command output
-> Migrations: {copy-this-address}
+> StarNotary: {copy-this-address}
 
 Manually paste it in script.address.js file
 
