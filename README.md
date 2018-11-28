@@ -1,5 +1,14 @@
 # Udacity Blockchain Term 1 final project
 
+#### Contract address 
+> 0xe7a2c59069ce51adda25799c3659a0d61cdda29d
+#### Transaction ID
+> 0x852a8ae3d14fd39e9dfea5ae519a0a2ce5ffe342f818ea39a7eb82e9ac4978dc
+
+https://rinkeby.etherscan.io/address/0xe7a2c59069ce51adda25799c3659a0d61cdda29d
+
+## Project testing steps
+
 ### 1. Set env vars
 Create .env file inside smart_contracts folder
 > cp .env.example .env
