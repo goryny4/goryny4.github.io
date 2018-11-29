@@ -26,8 +26,15 @@ module.exports = {
         rinkeby: {
             provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
             network_id: '4',
-            gas: 4500000,
-            gasPrice: 25000000000
+            gas: 6612388, // Gas limit used for deploys
+            gasPrice: 10000000000, // 10 gwei
         },
+    },
+    mocha: {
+        reporter: 'eth-gas-reporter',
+        reporterOptions : {
+            currency: 'USD',
+            gasPrice: 10
+        }
     }
 };

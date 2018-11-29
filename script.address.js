@@ -1,1 +1,1 @@
-let ADDRESS = 'put_here_your_smart_contract_address_produced_by_truffle_migrate';
+let ADDRESS = '0x0c6685bee9dc1b6f0c809ae3e8dddf362e501371';

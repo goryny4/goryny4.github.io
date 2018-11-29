@@ -1,11 +1,11 @@
 # Udacity Blockchain Term 1 final project
 
 #### Contract address 
-> 0xe7a2c59069ce51adda25799c3659a0d61cdda29d
+> 0x0c6685bee9dc1b6f0c809ae3e8dddf362e501371
 #### Transaction ID
-> 0x852a8ae3d14fd39e9dfea5ae519a0a2ce5ffe342f818ea39a7eb82e9ac4978dc
+> 0xec7a884fd420f5e1f62f0ff84f6391791f7be3845b17445fd2af882b23d8af5a
 
-https://rinkeby.etherscan.io/address/0xe7a2c59069ce51adda25799c3659a0d61cdda29d
+https://rinkeby.etherscan.io/address/0x0c6685bee9dc1b6f0c809ae3e8dddf362e501371
 
 ## Project testing steps
 
@@ -19,8 +19,7 @@ Set MNEMONIC and INFURA_API_KEY
 > ganache-cli -e 100 -m $MNEMONIC
 
 ### 3. Compile and push contracts to the network
-> truffle compile
-> truffle migrate --reset --network ganache
+> truffle migrate --compile-all --reset --network ganache
 
 ### 4. Set ABI code
 The ABI code is pasted into script.abi.js file

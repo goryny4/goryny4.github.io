@@ -15,9 +15,14 @@ contract StarNotary is ERC721 {
 
     mapping(uint256 => Star) public tokenIdToStarInfo;
     mapping(uint256 => uint256) public starsForSale;
-    mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
+    // mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
+    mapping(bytes32 => bool) coordinatesToStarId;
 
-    //   mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
+    event StarCreated(
+        address indexed _from,
+        Star star
+    );
+
     function checkIfStarExists(
         string _dec,
         string _mag,
@@ -26,7 +31,9 @@ contract StarNotary is ERC721 {
     public
     returns (bool)
     {
-        return coordinatesToStarId[_dec][_mag][_cent] > 0;
+        // return coordinatesToStarId[_dec][_mag][_cent] > 0;
+        bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
+        return coordinatesToStarId[hash] == true;
     }
 
     modifier isUniqueStar(string _dec, string _mag, string _cent) {
@@ -52,6 +59,12 @@ contract StarNotary is ERC721 {
         tokenIdToStarInfo[_tokenId] = newStar;
 
         _mint(msg.sender, _tokenId);
+
+        // coordinatesToStarId[_dec][_mag][_cent] = 1;
+        bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
+        coordinatesToStarId[hash] = true;
+
+        emit StarCreated(msg.sender, newStar);
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
@@ -67,8 +80,7 @@ contract StarNotary is ERC721 {
     }
 
 
-    // checks -> effects -> interaction (money move) (important pattern! fallback function)
-    function buyStar(uint256 _tokenId) public payable { 
+    function buyStar(uint256 _tokenId) public payable {
         require(starsForSale[_tokenId] > 0, "This star is not for sale!");
         
         uint256 starCost = starsForSale[_tokenId];
@@ -95,8 +107,4 @@ contract StarNotary is ERC721 {
         );
     }
 
-
-//    function starIsForSale(uint256 _tokenId) public view returns (bool) {
-//        return false; //starIsForSale[_tokenId];
-//    }
 }

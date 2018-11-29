@@ -30,12 +30,20 @@ let StarNotary = web3.eth.contract(ABI);
 // Grab the contract at specified deployed address with the interface defined by the ABI
 let starNotary = StarNotary.at(ADDRESS);
 
+// write to console on star creation
+let event = starNotary.StarCreated(function(error, result) {
+    if (!error)
+        console.log(result);
+    else
+        console.log('some error');
+});
+
 // Enable claim button being clicked
 function claimButtonClicked() {
     web3.eth.getAccounts(function(error, accounts) {
         if (error) {
             console.log(error);
-            return
+            return;
         }
 
         let starName = document.getElementById('new-star-name').value;
@@ -47,7 +55,7 @@ function claimButtonClicked() {
 
         starNotary.createStar(starName,starStory,starDec,starMag,starCent,starToken,function (error, result) {
             if (!error) {
-                console.log('successfully stored');
+                console.log('successfully sent to the blockchain');
             } else {
                 console.log(error);
             }

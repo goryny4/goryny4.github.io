@@ -34,20 +34,23 @@ contract('StarNotary', accounts => {
 
 
         it('check if star exists (checkIfStarExists)', async function () {
-            const exists = await this.contract.checkIfStarExists('1', '2', '3');
+            let exists = await this.contract.checkIfStarExists('1', '2', '3');
+            let doesNotExist = await this.contract.checkIfStarExists('1', '2', '4');
+
             setTimeout(() => {
                 assert.equal(exists,true);
+                assert.equal(doesNotExist,false);
             },1000);
         });
 
         it('can read a star (tokenIdToStarInfo)', async function () {
-            const [starName, starStory, starDec, starMag, starCent] = await this.contract.tokenIdToStarInfo(555);
+            const star = await this.contract.tokenIdToStarInfo(555);
 
-            assert.equal(starName,'awesome star!');
-            assert.equal(starStory,'awesome story!');
-            assert.equal(starDec,'1');
-            assert.equal(starMag,'2');
-            assert.equal(starCent,'3');
+            assert.deepEqual(star,[
+                'awesome star!',
+                'awesome story!',
+                '1','2','3'
+            ])
         });
 
         it('can put a star for Sale and can get its price (putStarUpForSale, getStarPriceByTokenId)', async function () {
