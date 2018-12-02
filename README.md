@@ -49,3 +49,6 @@ Fill the fields and press the button
 > starNotary.getStarPriceByTokenId(12345678,(er,result)=>{console.log(JSON.stringify(result))}) 
 
 500 is expected
+
+### 11. Buy the star (console)
+> starNotary.buyStar(12345678,(er,result)=>{console.log(JSON.stringify(result))}) 
