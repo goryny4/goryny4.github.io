@@ -80,6 +80,19 @@ function readButtonClicked() {
         let starDec = document.getElementById('star-dec');
         let starMag = document.getElementById('star-mag');
         let starCent = document.getElementById('star-cent');
+        let starPrice = document.getElementById('star-price');
+
+        starNotary.getStarPriceByTokenId(starToken, function (error, result) {
+            if (!error) {
+                starPrice.innerHTML = result;
+                starPrice.parentElement.style.display = '';
+                document.getElementById('buy-button').style.display = '';
+
+                console.log(result);
+            } else {
+                console.log(error);
+            }
+        });
 
         starNotary.tokenIdToStarInfo(starToken ,function (error, result) {
             if (!error) {
@@ -102,4 +115,44 @@ function readButtonClicked() {
         });
 
     })
+}
+
+
+function sellButtonClicked() {
+    web3.eth.getAccounts(function (error, accounts) {
+        if (error) {
+            console.log(error);
+            return
+        }
+
+        let starToken = document.getElementById('sell-token').value;
+        let price = document.getElementById('sell-star').value;
+
+        starNotary.putStarUpForSale(starToken, price, function (error, result) {
+            if (!error) {
+                console.log(result);
+            } else {
+                console.log(error);
+            }
+        });
+    });
+}
+
+function buyButtonClicked() {
+    web3.eth.getAccounts(function (error, accounts) {
+        if (error) {
+            console.log(error);
+            return
+        }
+
+        let starToken = document.getElementById('star-token').value;
+
+        starNotary.buyStar(starToken, function (error, result) {
+            if (!error) {
+                console.log(result);
+            } else {
+                console.log(error);
+            }
+        });
+    });
 }

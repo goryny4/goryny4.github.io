@@ -46,6 +46,24 @@
             <button id="claim-button" onclick="claimButtonClicked()">Claim the Star</button>
         </div>
 
+
+        <div class="container">
+            <h1>Sell the Star:</h1>
+
+            <div class="row">
+                <label class="bold">Token ID:</label>
+                <input id="sell-token" value="12345678"/>
+            </div>
+
+            <div class="row">
+                <label class="bold">Set Price:</label>
+                <input id="sell-star" value=""/>
+            </div>
+
+            <button id="sell-button" onclick="sellButtonClicked()">Sell Star</button>
+        </div>
+
+
         <div class="container">
             <h1>Read the Star by it's token:</h1>
 
@@ -76,7 +94,14 @@
                 <label class="bold">Cent:</label>
                 <label id="star-cent"></label>
             </div>
+
+            <div class="row" style="display: none">
+                <label class="bold">Price:</label>
+                <label id="star-price"></label>
+            </div>
             <button id="check-button" onclick="readButtonClicked()">Check Star</button>
+
+            <button id="buy-button" onclick="buyButtonClicked()" style="display: none">Buy Star</button>
         </div>
     </body>
 </html>

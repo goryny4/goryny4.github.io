@@ -55,12 +55,25 @@ contract('StarNotary', accounts => {
 
         it('can put a star for Sale and can get its price (putStarUpForSale, getStarPriceByTokenId)', async function () {
 
-            await this.contract.putStarUpForSale(555, 100);
+            await this.contract.putStarUpForSale(555, 1);
 
             let starCost = await this.contract.getStarPriceByTokenId(555);
 
             setTimeout(() => {
-                assert.equal(starCost,100);
+                assert.equal(starCost,1);
+            },1000);
+        });
+
+
+        it('can buy a star (buyStar)', async function () {
+            console.log('here 1');
+
+            await this.contract.buyStar(555);
+            console.log('here 2');
+
+            console.log(success);
+            setTimeout(() => {
+                assert.equal(success,true);
             },1000);
         });
     });
