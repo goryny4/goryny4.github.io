@@ -134,12 +134,12 @@
                     <h4 class="my-0 font-weight-normal">Sell a Star</h4>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="form-group">
                         <label for="sell-token" class="bold">Token ID</label>
                         <input class="form-control" id="sell-token" value="12345678"/>
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
                         <label for="sell-star" class="bold">Set Price</label>
                         <input class="form-control" id="sell-star" value=""/>
                     </div>
@@ -154,9 +154,13 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
+                    <div class="form-group">
                         <label for="sell-token" class="bold">Token ID</label>
                         <input class="form-control" id="buy-token" value="12345678"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="buy-price" class="bold">Price</label>
+                        <input class="form-control" id="buy-price" value=""/>
                     </div>
                     <button id="buy-button" onclick="buyButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Buy Star</button>
                 </div>

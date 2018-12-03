@@ -17,9 +17,10 @@ contract StarNotary is ERC721 {
     mapping(uint256 => uint256) public starsForSale;
     // mapping(string => mapping(string => mapping (string => uint256))) coordinatesToStarId;
     mapping(bytes32 => bool) coordinatesToStarId;
+    uint256 public starCount;
 
     event StarCreated(
-          string starName
+          uint256 starToken
     );
 
     function checkIfStarExists(
@@ -52,21 +53,20 @@ contract StarNotary is ERC721 {
     {
         bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
         coordinatesToStarId[hash] = true;
-        uint256 token = uint256(hash);
 
-        require(!tokenIdToStarInfo[token].exists,"Token already exists!");
+        starCount = starCount + 1;
+        uint256 token = starCount;
 
         Star memory newStar = Star(_name, _story, _dec, _mag, _cent, true);
 
         tokenIdToStarInfo[token] = newStar;
-        Star star = tokenIdToStarInfo[token];
-        string starName = star.name;
+        Star storage star = tokenIdToStarInfo[token];
+        string storage starName = star.name;
         _mint(msg.sender, token);
 
-        emit StarCreated(starName);
-
-        return token;
+        emit StarCreated(token);
     }
+
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
         require(this.ownerOf(_tokenId) == msg.sender, "You are not an owner of this Star");

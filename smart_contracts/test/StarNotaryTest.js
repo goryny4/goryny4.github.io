@@ -5,12 +5,11 @@ contract('StarNotary', accounts => {
     beforeEach(async function () {
         this.contract = await StarNotary.new({from: accounts[0]});
 
-        let response = await this.contract.createStar(
+        await this.contract.createStar(
             'awesome star!',
             'awesome story!',
             '1', '2', '3'
         );
-        console.log(response);
 
     });
 
@@ -44,7 +43,7 @@ contract('StarNotary', accounts => {
         });
 
         it('can read a star (tokenIdToStarInfo)', async function () {
-            const star = await this.contract.tokenIdToStarInfo(555);
+            const star = await this.contract.tokenIdToStarInfo(1);
 
             assert.deepEqual(star,[
                 'awesome star!',
@@ -55,9 +54,9 @@ contract('StarNotary', accounts => {
 
         it('can put a star for Sale and can get its price (putStarUpForSale, getStarPriceByTokenId)', async function () {
 
-            await this.contract.putStarUpForSale(555, 1);
+            await this.contract.putStarUpForSale(1, 1);
 
-            let starCost = await this.contract.getStarPriceByTokenId(555);
+            let starCost = await this.contract.getStarPriceByTokenId(1);
 
             setTimeout(() => {
                 assert.equal(starCost,1);
@@ -68,7 +67,7 @@ contract('StarNotary', accounts => {
         it('can buy a star (buyStar)', async function () {
             console.log('here 1');
 
-            await this.contract.buyStar(555);
+            await this.contract.buyStar(555, {value: 10 ** 18});
             console.log('here 2');
 
             console.log(success);

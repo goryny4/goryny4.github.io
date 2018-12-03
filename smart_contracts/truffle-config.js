@@ -24,7 +24,7 @@ module.exports = {
             network_id: "*" // Match any network id
         },
         rinkeby: {
-            provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
+            provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
             network_id: '4',
             gas: 6612388, // Gas limit used for deploys
             gasPrice: 41000000000,

@@ -44,14 +44,12 @@ function claimButtonClicked() {
         let starDec = document.getElementById('new-star-dec').value;
         let starMag = document.getElementById('new-star-mag').value;
         let starCent = document.getElementById('new-star-cent').value;
-        let starToken = document.getElementById('new-star-token');
+
+        console.log([starName,starStory,starDec,starMag,starCent]);
 
         starNotary.createStar(starName,starStory,starDec,starMag,starCent,function (error, result) {
             if (!error) {
-                starToken.parentElement.style.display = '';
-                starToken.innerHTML = result;
                 console.log('successfully sent to the blockchain ' + result);
-                alert(result);
             } else {
                 console.log(error);
             }
@@ -80,7 +78,6 @@ function readButtonClicked() {
         let starOwner = document.getElementById('star-owner');
 
 
-        alert(starToken);
         starNotary.tokenIdToStarInfo(starToken ,function (error, result) {
             if (!error) {
                 starName.innerHTML = result[0];
@@ -100,7 +97,7 @@ function readButtonClicked() {
                 console.log(error);
             }
         });
-/*
+
         starNotary.getStarPriceByTokenId(starToken, function (error, result) {
             if (!error) {
                 starPrice.innerHTML = result;
@@ -124,7 +121,7 @@ function readButtonClicked() {
                 console.log(error);
             }
         });
-*/
+
     })
 }
 
@@ -157,8 +154,9 @@ function buyButtonClicked() {
         }
 
         let starToken = document.getElementById('buy-token').value;
+        let starPrice = document.getElementById('buy-price').value;
 
-        starNotary.buyStar(starToken, function (error, result) {
+        starNotary.buyStar(starToken, {value: starPrice ** 18},  function (error, result) {
             if (!error) {
                 console.log(result);
             } else {
@@ -175,6 +173,9 @@ let myevent = starNotary.StarCreated();
 
 myevent.watch(function (er, result) {
     if (!er) {
+        let starToken = document.getElementById('new-star-token');
+        starToken.parentElement.style.display = '';
+        starToken.innerHTML = result.args.starToken;
         console.log(result.args.starName);
     } else {
         console.log('error!1!1!');
