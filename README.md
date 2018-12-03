@@ -1,11 +1,11 @@
 # Udacity Blockchain Term 1 final project
 
 #### Contract address 
-> 0x0c6685bee9dc1b6f0c809ae3e8dddf362e501371
+> 0x794a357d372ff72c093107f990475dbb78de2fbe
 #### Transaction ID
-> 0xec7a884fd420f5e1f62f0ff84f6391791f7be3845b17445fd2af882b23d8af5a
+> 0x935bf69b23285c56ee2dd779e3f8970f90a6101f4878b91c6e15bf9a2508d3c3
 
-https://rinkeby.etherscan.io/address/0x0c6685bee9dc1b6f0c809ae3e8dddf362e501371
+https://rinkeby.etherscan.io/address/0x794a357d372ff72c093107f990475dbb78de2fbe
 
 ## Project testing steps
 
