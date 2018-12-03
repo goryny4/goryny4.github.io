@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Star Notary</title>
+        <title>Star Notary Service</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://getbootstrap.com/docs/4.0/examples/pricing/pricing.css" rel="stylesheet">
@@ -16,150 +16,151 @@
     <body>
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal">Star Notary Service</h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Enterprise</a>
             <a class="p-2 text-dark" href="#">Support</a>
             <a class="p-2 text-dark" href="#">Pricing</a>
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <a class="btn btn-outline-primary" href="https://github.com/goryny4/goryny4.github.io">Github repo</a>
     </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Pricing</h1>
-        <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+        <!--h1 class="display-4">Star Notary Service</h1-->
+        <p class="lead" id="current-account">Udacity Blockchain Developer - Term 1 Final Project</p>
     </div>
 
     <div class="container">
-        <div class="card-deck mb-3 text-center">
+        <div class="card-deck mb-4 text-left">
 
 
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Claim a new star</h4>
                 </div>
+                <form class="card-body px-4 py-3">
+                    <div class="form-group">
+                        <label for="new-star-name" class="bold">Name</label>
+                        <input class="form-control" id="new-star-name" value="Test Star Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-star-story" class="bold">Story</label>
+                        <input class="form-control" id="new-star-story" value="Test Star Story"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-star-dec" class="bold">Declination</label>
+                        <input class="form-control" id="new-star-dec" value="1" placeholder="dec_100.100"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-star-mag" class="bold">Magnitude</label>
+                        <input class="form-control" id="new-star-mag" value="2" placeholder="mag_100.100"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-star-cent" class="bold">Constellation</label>
+                        <select class="form-control" id="new-star-cent">
+                            <option value="andromeda">Andromeda</option>
+                            <option value="cassiopeia">Cassiopeia</option>
+                            <option value="centaurus">Centaurus</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="claim-button" onclick="claimButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Claim the Star</button>
+                    </div>
+                    <div class="form-group" style="display: none">
+                        <label for="new-star-token" class="bold">Token ID</label>
+                        <label id="new-star-token"></label>
+                    </div>
+                 </form>
+
+            </div>
+
+
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Read a Star</h4>
+                </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
 
-                    <div class="row">
-                        <label class="bold">Name:</label>
-                        <input id="new-star-name" value="Test Star Name"/>
+                    <div class="form-group">
+                        <label class="bold">Token ID</label>
+                        <input class="form-control" id="star-token" value="12345678"/>
                     </div>
+                    <div class="form-group">
+                        <button id="check-button" onclick="readButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Read Star</button>
+                    </div>
+                    <div class="form-group">
+                        <div style="display: none">
+                            <label class="bold">Name</label>
+                            <label id="star-name"></label>
+                        </div>
 
-                    <div class="row">
-                        <label class="bold">Story:</label>
-                        <input id="new-star-story" value="Test Star Story"/>
-                    </div>
+                        <div style="display: none">
+                            <label class="bold">Story</label>
+                            <label id="star-story"></label>
+                        </div>
 
-                    <div class="row">
-                        <label class="bold">Dec:</label>
-                        <input id="new-star-dec" value="1"/>
-                    </div>
-                    <div class="row">
-                        <label class="bold">Mag:</label>
-                        <input id="new-star-mag" value="2"/>
-                    </div>
-                    <div class="row">
-                        <label class="bold">Cent:</label>
-                        <input id="new-star-cent" value="3"/>
-                    </div>
-                    <div class="row">
-                        <label class="bold">Token ID:</label>
-                        <input id="new-star-token" value="12345678"/>
-                    </div>
+                        <div style="display: none">
+                            <label class="bold">Declination</label>
+                            <label id="star-dec"></label>
+                        </div>
+                        <div style="display: none">
+                            <label class="bold">Magnitude</label>
+                            <label id="star-mag"></label>
+                        </div>
+                        <div style="display: none">
+                            <label class="bold">Cent</label>
+                            <label id="star-cent"></label>
+                        </div>
+                        <div style="display: none">
+                            <label class="bold">Price</label>
+                            <label id="star-price"></label>
+                        </div>
 
-                    <button id="claim-button" onclick="claimButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Claim the Star</button>
+
+                        <div style="display: none">
+                            <label class="bold">Owner</label>
+                            <label id="star-owner"></label>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
 
 
-
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Sell the Star</h4>
+                    <h4 class="my-0 font-weight-normal">Sell a Star</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
-
                     <div class="row">
-                        <label class="bold">Token ID:</label>
-                        <input id="sell-token" value="12345678"/>
+                        <label for="sell-token" class="bold">Token ID</label>
+                        <input class="form-control" id="sell-token" value="12345678"/>
                     </div>
 
                     <div class="row">
-                        <label class="bold">Set Price:</label>
-                        <input id="sell-star" value=""/>
+                        <label for="sell-star" class="bold">Set Price</label>
+                        <input class="form-control" id="sell-star" value=""/>
                     </div>
 
                     <button id="sell-button" onclick="sellButtonClicked()"  type="button" class="btn btn-lg btn-block btn-primary">Sell Star</button>
                 </div>
-            </div>
 
 
 
-
-
-
-
-
-            <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Enterprise</h4>
+                    <h4 class="my-0 font-weight-normal">Buy a Star</h4>
                 </div>
+
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-
-
-
-                    <div class="container">
-                        <h1>Read the Star by it's token:</h1>
-
-                        <div class="row">
-                            <label class="bold">Token ID:</label>
-                            <input id="star-token" value="12345678"/>
-                        </div>
-
-                        <div class="row" style="display: none">
-                            <label class="bold">Name:</label>
-                            <label id="star-name"></label>
-                        </div>
-
-                        <div class="row" style="display: none">
-                            <label class="bold">Story:</label>
-                            <label id="star-story"></label>
-                        </div>
-
-                        <div class="row" style="display: none">
-                            <label class="bold">Dec:</label>
-                            <label id="star-dec"></label>
-                        </div>
-                        <div class="row" style="display: none">
-                            <label class="bold">Mag:</label>
-                            <label id="star-mag"></label>
-                        </div>
-                        <div class="row" style="display: none">
-                            <label class="bold">Cent:</label>
-                            <label id="star-cent"></label>
-                        </div>
-
-                        <div class="row" style="display: none">
-                            <label class="bold">Price:</label>
-                            <label id="star-price"></label>
-                        </div>
-                        <button id="check-button" onclick="readButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Check Star</button>
-                        <button id="buy-button" onclick="buyButtonClicked()" style="display: none" type="button" class="btn btn-lg btn-block btn-primary">Buy Star</button>
+                    <div class="row">
+                        <label for="sell-token" class="bold">Token ID</label>
+                        <input class="form-control" id="buy-token" value="12345678"/>
                     </div>
+                    <button id="buy-button" onclick="buyButtonClicked()" type="button" class="btn btn-lg btn-block btn-primary">Buy Star</button>
                 </div>
             </div>
-
-
-
-
-
-
-
 
 
         </div>

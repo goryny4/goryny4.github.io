@@ -19,8 +19,7 @@ contract StarNotary is ERC721 {
     mapping(bytes32 => bool) coordinatesToStarId;
 
     event StarCreated(
-        address indexed _from,
-        Star star
+          string starName
     );
 
     function checkIfStarExists(
@@ -31,7 +30,6 @@ contract StarNotary is ERC721 {
     public
     returns (bool)
     {
-        // return coordinatesToStarId[_dec][_mag][_cent] > 0;
         bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
         return coordinatesToStarId[hash] == true;
     }
@@ -46,25 +44,28 @@ contract StarNotary is ERC721 {
         string _story,
         string _dec,
         string _mag,
-        string _cent,
-        uint256 _tokenId
+        string _cent
     )
         public
         isUniqueStar( _dec, _mag, _cent)
+        returns (uint256)
     {
-        require(!tokenIdToStarInfo[_tokenId].exists,"Token already exists!");
+        bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
+        coordinatesToStarId[hash] = true;
+        uint256 token = uint256(hash);
+
+        require(!tokenIdToStarInfo[token].exists,"Token already exists!");
 
         Star memory newStar = Star(_name, _story, _dec, _mag, _cent, true);
 
-        tokenIdToStarInfo[_tokenId] = newStar;
+        tokenIdToStarInfo[token] = newStar;
+        Star star = tokenIdToStarInfo[token];
+        string starName = star.name;
+        _mint(msg.sender, token);
 
-        _mint(msg.sender, _tokenId);
+        emit StarCreated(starName);
 
-        // coordinatesToStarId[_dec][_mag][_cent] = 1;
-        bytes32 hash = keccak256(abi.encodePacked(_dec, _mag, _cent));
-        coordinatesToStarId[hash] = true;
-
-        emit StarCreated(msg.sender, newStar);
+        return token;
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {

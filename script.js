@@ -1,24 +1,25 @@
 window.addEventListener('load', async () => {
     if (typeof web3 !== 'undefined') {
 
-    if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-            // Request account access if needed
-            await ethereum.enable();
-            // Acccounts now exposed
-            web3.eth.sendTransaction({/* ... */});
-        } catch (error) {
-            // User denied account access...
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+                // Request account access if needed
+                await ethereum.enable();
+                // Acccounts now exposed
+                web3.eth.sendTransaction({/* ... */});
+            } catch (error) {
+                // User denied account access...
+            }
+        } else {
+            web3 = new Web3(web3.currentProvider) // what Metamask injected
         }
     } else {
-        web3 = new Web3(web3.currentProvider) // what Metamask injected
+        // Instantiate and set Ganache as your provider
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
-} else {
-    // Instantiate and set Ganache as your provider
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
 
+    document.getElementById('current-account').innerHTML = 'Current account: <b>' + web3.eth.defaultAccount + '</b>';
 });
 
 
@@ -29,14 +30,6 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 let StarNotary = web3.eth.contract(ABI);
 // Grab the contract at specified deployed address with the interface defined by the ABI
 let starNotary = StarNotary.at(ADDRESS);
-
-// write to console on star creation
-let event = starNotary.StarCreated(function(error, result) {
-    if (!error)
-        console.log(result);
-    else
-        console.log('some error');
-});
 
 // Enable claim button being clicked
 function claimButtonClicked() {
@@ -51,11 +44,14 @@ function claimButtonClicked() {
         let starDec = document.getElementById('new-star-dec').value;
         let starMag = document.getElementById('new-star-mag').value;
         let starCent = document.getElementById('new-star-cent').value;
-        let starToken = document.getElementById('new-star-token').value;
+        let starToken = document.getElementById('new-star-token');
 
-        starNotary.createStar(starName,starStory,starDec,starMag,starCent,starToken,function (error, result) {
+        starNotary.createStar(starName,starStory,starDec,starMag,starCent,function (error, result) {
             if (!error) {
-                console.log('successfully sent to the blockchain');
+                starToken.parentElement.style.display = '';
+                starToken.innerHTML = result;
+                console.log('successfully sent to the blockchain ' + result);
+                alert(result);
             } else {
                 console.log(error);
             }
@@ -70,7 +66,7 @@ function readButtonClicked() {
     web3.eth.getAccounts(function(error, accounts) {
         if (error) {
             console.log(error);
-            return
+            return;
         }
 
         let starToken = document.getElementById('star-token').value;
@@ -81,19 +77,10 @@ function readButtonClicked() {
         let starMag = document.getElementById('star-mag');
         let starCent = document.getElementById('star-cent');
         let starPrice = document.getElementById('star-price');
+        let starOwner = document.getElementById('star-owner');
 
-        starNotary.getStarPriceByTokenId(starToken, function (error, result) {
-            if (!error) {
-                starPrice.innerHTML = result;
-                starPrice.parentElement.style.display = '';
-                document.getElementById('buy-button').style.display = '';
 
-                console.log(result);
-            } else {
-                console.log(error);
-            }
-        });
-
+        alert(starToken);
         starNotary.tokenIdToStarInfo(starToken ,function (error, result) {
             if (!error) {
                 starName.innerHTML = result[0];
@@ -113,7 +100,31 @@ function readButtonClicked() {
                 console.log(error);
             }
         });
+/*
+        starNotary.getStarPriceByTokenId(starToken, function (error, result) {
+            if (!error) {
+                starPrice.innerHTML = result;
+                starPrice.parentElement.style.display = '';
 
+                console.log(result);
+            } else {
+                starPrice.innerHTML = '';
+                console.log(error);
+            }
+        });
+
+        starNotary.ownerOf(starToken, function (error, result) {
+            if (!error) {
+                starOwner.innerHTML = result;
+                starOwner.parentElement.style.display = '';
+
+                console.log(result);
+            } else {
+                starOwner.innerHTML = '';
+                console.log(error);
+            }
+        });
+*/
     })
 }
 
@@ -145,7 +156,7 @@ function buyButtonClicked() {
             return
         }
 
-        let starToken = document.getElementById('star-token').value;
+        let starToken = document.getElementById('buy-token').value;
 
         starNotary.buyStar(starToken, function (error, result) {
             if (!error) {
@@ -156,3 +167,17 @@ function buyButtonClicked() {
         });
     });
 }
+
+
+
+// write to console on star creation
+let myevent = starNotary.StarCreated();
+
+myevent.watch(function (er, result) {
+    if (!er) {
+        console.log(result.args.starName);
+    } else {
+        console.log('error!1!1!');
+    }
+
+});
